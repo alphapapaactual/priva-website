@@ -3,31 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Priva Innovation AB - test</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: monospace;
-        }
-    </style>
+    <title>Priva Innovation AB</title>
+    <link rel="stylesheet" href="style.css"> <!-- Länkar till CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script> <!-- Länkar till p5.js -->
+    <script src="script.js" defer></script> <!-- Länkar till din JavaScript-kod -->
 </head>
 <body>
-    <script>
-        a=(x,y,d=mag(k=(4+sin(y*2-t)*3)*cos(x/29),e=y/8-13))=>point((q=3*sin(k*2)+.3/k+sin(y/25)*k*(9+4*sin(e*9-d*3+t*2)))+30*cos(c=d-t)+200,q*sin(c)+d*39-220);
-        t=0;
-        function setup() {
-            createCanvas(400, 400);
-            background(0);
-            stroke(255, 255, 255);
-        }
-        function draw() {
-            t += PI / 240;
-            for (let i = 1e4; i--;) {
-                a(i, i / 235);
-            }
-        }
-    </script>
+    <div id="canvas-container"></div> <!-- Här placeras canvas -->
 </body>
 </html>
