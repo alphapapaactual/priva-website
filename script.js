@@ -1,5 +1,7 @@
 function setup() {
     createCanvas(400, 400);
+    background(0); // Svart bakgrund
+    stroke(255); // Helt vit fär
 }
 
 a = (x, y, d = mag(k = (4 + sin(y * 2 - t) * 3) * cos(x / 29), e = y / 8 - 13)) => 
