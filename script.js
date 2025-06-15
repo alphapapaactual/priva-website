@@ -34,4 +34,5 @@ function draw() {
     stroke(255); // Vit färg
     strokeWeight(4); 
     ellipse(width / 2, height / 2, 50, 50); // Testcirkel
+    fill(255); // Gör cirkeln vit
 }
