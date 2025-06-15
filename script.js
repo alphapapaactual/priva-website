@@ -29,3 +29,9 @@ function draw() {
         a(i, i / 235);
     }
 }
+function draw() {
+    background(0); // Svart bakgrund
+    stroke(255); // Vit färg
+    strokeWeight(4); 
+    ellipse(width / 2, height / 2, 50, 50); // Testcirkel
+}
