@@ -20,3 +20,16 @@ function draw() {
         a(i, i / 235);
     }
 }
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stoppar standardbeteendet
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    console.log("Namn:", name);
+    console.log("E-post:", email);
+    console.log("Meddelande:", message);
+
+    alert("Tack för ditt meddelande!");
+});
