@@ -648,7 +648,7 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
                 // 3. Hämta den publika nyckeln dynamiskt från din rotfil!
                 const keyResponse = await fetch('https://priva-innovation.eu/pgp-key.asc');
                 if (!keyResponse.ok) throw new Error('Kunde inte hämta publika nyckelfilen.'); v
-                const publicKeyArmored = await keyResponse.text();
+                const publicKeyArmored = (await keyResponse.text()).trim();
                 console.log("Hämtat innehåll från servern:", publicKeyArmored); // <-- LÄGG TILL DENNA RAD
                 // 4. Kryptera payload med OpenPGP.js
                 const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
