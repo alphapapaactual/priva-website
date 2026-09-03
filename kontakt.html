@@ -646,7 +646,7 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
 
             try {
                 // 3. Hämta den publika nyckeln dynamiskt från din rotfil!
-                const keyResponse = await fetch('/pgp-key.asc');
+                const keyResponse = await fetch('https://priva-innovation.eu/pgp-key.asc');
                 if (!keyResponse.ok) throw new Error('Kunde inte hämta publika nyckelfilen.');
                 const publicKeyArmored = await keyResponse.text();
 
