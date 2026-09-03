@@ -3,12 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Priva Innovation AB</title>
-    <link rel="stylesheet" href="style.css"> <!-- Länkar till CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script> <!-- Länkar till p5.js -->
-    <script src="script.js" defer></script> <!-- Länkar till din JavaScript-kod -->
+    <title>Priva Innovation AB - Digital Resiliens & Smarta System</title>
+    <!-- p5.js bibliotek för reaktorn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="canvas-container"></div> <!-- Här placeras canvas -->
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="brand">
+                    <img src="logo_Priva-Innovation.png"
+                         alt="Priva Innovation"
+                         class="brand-logo"
+                         onerror="if (!this.dataset.fallback) { this.dataset.fallback = true; this.src = 'logo.png'; } else { this.style.display = 'none'; document.getElementById('cyber-svg-logo').style.display = 'block'; }">
+
+                    <svg id="cyber-svg-logo" style="display:none; width:34px; height:34px; filter:drop-shadow(0 0 6px #00f0ff);" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="22" r="7" fill="#00f0ff" />
+                        <circle cx="20" cy="50" r="7" fill="#00ff66" />
+                        <circle cx="80" cy="50" r="7" fill="#00f0ff" />
+                        <circle cx="35" cy="80" r="7" fill="#9d4edd" />
+                        <circle cx="65" cy="80" r="7" fill="#00ff66" />
+                        <circle cx="50" cy="55" r="7" fill="#00f0ff" />
+                        <line x1="50" y1="22" x2="20" y2="50" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="50" y1="22" x2="80" y2="50" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="20" y1="50" x2="35" y2="80" stroke="#9d4edd" stroke-width="3" />
+                        <line x1="80" y1="50" x2="65" y2="80" stroke="#00ff66" stroke-width="3" />
+                        <line x1="35" y1="80" x2="65" y2="80" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="50" y1="22" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="20" y1="50" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="80" y1="50" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="35" y1="80" x2="50" y2="55" stroke="#9d4edd" stroke-width="3" />
+                        <line x1="65" y1="80" x2="50" y2="55" stroke="#00ff66" stroke-width="3" />
+                    </svg>
+
+                    <span class="brand-text">PRIVA <span>//</span> INNOVATION</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">Hem</a></li>
+                        <li><a href="priser.html">Hem-IT & Smarta Hem</a></li>
+                        <li><a href="konsult.html">B2B Konsult</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN INNEHÅLL -->
+    <main class="container">
+
+        <div class="hero-section">
+            <canvas id="cyber-canvas"></canvas> <!-- LÄGG TILL DENNA HÄR -->
+            <div class="hero-left">
+                <div class="status-badge">
+                    <div class="status-indicator"></div>
+                    <span>System Status // Under uppbyggnad</span>
+                </div>
+                <h1 class="hero-title">Ny digital plattform <span>under utveckling</span>.</h1>
+                <p class="hero-desc">
+                    Vi bygger om vår webbnärvaro inför 2026. Under tiden är våra operativa verksamhetsben fullt aktiva för både privatpersoner och företagskunder.
+                </p>
+                <div style="font-family: var(--font-mono); font-size: 0.88rem; color: var(--text-muted);">
+                    Välj område nedan för priser, specialistområden och kontaktvägar.
+                </div>
+            </div>
+
+            <!-- p5.js GENERATIV REAKTOR -->
+            <div class="canvas-frame">
+                <div class="canvas-hud-wrapper">
+                    <div id="canvas-container"></div>
+                    <div class="canvas-caption">QUANTUM FLUX MATRIX // ACTIVE</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PORTALVAL -->
+        <div class="portal-grid">
+
+            <!-- PORTAL 1: PRIVAT / RUT -->
+            <a href="priser.html" class="portal-card">
+                <div>
+                    <div class="portal-tag">PRIVATPERSONER // RUT (50 %)</div>
+                    <h3>Hem-IT & Smarta Energisystem</h3>
+                    <p>Fasta paketlösningar för wifi, mesh, smarta hem samt integrerad styrning av solceller, hembatterier och värmepumpar.</p>
+                </div>
+                <div class="portal-link-text">
+                    Utforska paket & priser <span>→</span>
+                </div>
+            </a>
+
+            <!-- PORTAL 2: B2B / KONSULT -->
+            <a href="konsult.html" class="portal-card">
+                <div>
+                    <div class="portal-tag">FÖRETAG // KRITISK INFRASTRUKTUR</div>
+                    <h3>IT-Arkitektur & Cyberresiliens</h3>
+                    <p>Strategisk rådgivning och teknisk arkitektur. Specialiststöd inom NIS2, Zero Trust/PAM, OpenShift och ledningssystem (LIS).</p>
+                </div>
+                <div class="portal-link-text">
+                    Granska kompetenser & modeller <span>→</span>
+                </div>
+            </a>
+
+            <!-- PORTAL 3: KONTAKT -->
+            <a href="kontakt.html" class="portal-card">
+                <div>
+                    <div class="portal-tag">DIREKTKONTAKT // DIALOG</div>
+                    <h3>Initiera Uppdrag eller Fråga</h3>
+                    <p>Behöver du rådgivning inför en installation, förstudie eller offert på konsultstöd? Hör av dig via vårt GDPR-säkrade formulär.</p>
+                </div>
+                <div class="portal-link-text">
+                    Gå till kontaktsidan <span>→</span>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-contacts">
+                <a href="mailto:patrik@priva-innovation.eu">✉️ patrik@priva-innovation.eu</a>
+                <a href="tel:0768838332">📞 076-883 83 32</a>
+                <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
+            </div>
+            <div class="footer-legal">
+                © 2026 Priva Innovation AB (Org.nr: 559243-7510). Innehar F-skattsedel. <a href="https://priva-innovation.eu/privacy.html" style="color: var(--text-muted); text-decoration: underline;">Integritetspolicy</a>.
+            </div>
+        </div>
+    </footer>
+
+    <!-- p5.js SKRIPT -->
+    <script>
+        function setup() {
+            let cnv = createCanvas(400, 400);
+            cnv.parent("canvas-container");
+        }
+
+        a = (x, y, d = mag(k = (4 + sin(y * 2 - t) * 3) * cos(x / 29), e = y / 8 - 13)) =>
+            point(
+                (q = 3 * sin(k * 2) + .3 / k + sin(y / 25) * k * (9 + 4 * sin(e * 9 - d * 3 + t * 2))) + 30 * cos(c = d - t) + 200,
+                q * sin(c) + d * 39 - 220
+            );
+
+        t = 0;
+
+        function draw() {
+            background(10, 11, 16);
+            stroke(220, 240, 255);
+            strokeWeight(2);
+
+            for (t += PI / 240, i = 1e4; i--;) {
+                a(i, i / 235);
+            }
+        }
+    </script>
 </body>
 </html>
