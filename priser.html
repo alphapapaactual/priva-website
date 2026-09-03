@@ -1,0 +1,747 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hem-IT & Smarta Energisystem - Priva Innovation AB</title>
+    <style>
+        :root {
+            --main-purple: #7E57C2;
+            --dark-purple: #5E35B1;
+            --light-purple: #F3E5F5;
+            --text-dark: #2c3e50;
+            --text-muted: #666;
+            --text-light: #ffffff;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+            .logo-container img {
+                height: 40px;
+                width: auto;
+            }
+
+        .site-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark-purple);
+            margin-left: 12px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+            nav a:hover, nav a.active {
+                color: var(--main-purple);
+            }
+
+        /* --- HERO --- */
+        .hero {
+            position: relative;
+            background: radial-gradient(circle at center, #2e164d 0%, #150d24 100%);
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+                margin: 0 0 12px 0;
+                letter-spacing: 1.5px;
+                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+                max-width: 650px;
+                margin: 0 auto;
+                color: #e0d4f7;
+            }
+
+        /* --- SEKTIONER --- */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--dark-purple);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* RUT & TABELL */
+        .rut-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background-color: var(--bg-white);
+            padding: 24px 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+            .rut-intro p {
+                margin: 0;
+                font-size: 1.05rem;
+            }
+
+        .pricing-table-container {
+            overflow-x: auto;
+            background-color: var(--bg-white);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: var(--main-purple);
+        }
+
+            thead th {
+                color: #ffffff !important;
+                font-weight: 600;
+                padding: 16px 20px;
+                font-size: 0.95rem;
+                letter-spacing: 0.5px;
+                border: none;
+            }
+
+        th.col-price, th.col-ord {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fafbfd;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f0f8;
+        }
+
+        .service-title {
+            font-weight: 600;
+            color: var(--dark-purple);
+        }
+
+        .price-rut {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--dark-purple);
+            white-space: nowrap;
+        }
+
+        .price-ord {
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .hourly-rates {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .rate-card {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            width: 50%;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+            .rate-card h3 {
+                color: var(--dark-purple);
+                margin: 0 0 10px 0;
+                font-size: 1.25rem;
+            }
+
+            .rate-card .main-price {
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: var(--main-purple);
+                margin: 10px 0 5px 0;
+            }
+
+            .rate-card .sub-price {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                margin: 0;
+            }
+
+        /* ENERGISEKTION */
+        .energy-section {
+            background-color: #f1f5f9;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .energy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+
+        .energy-card {
+            background-color: var(--bg-white);
+            padding: 28px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+            .energy-card .icon {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+
+            .energy-card h3 {
+                color: var(--dark-purple);
+                margin: 0 0 10px 0;
+                font-size: 1.2rem;
+            }
+
+            .energy-card p {
+                font-size: 0.95rem;
+                color: #475569;
+                margin: 0;
+            }
+
+        .projecting-banner {
+            background: linear-gradient(135deg, var(--dark-purple), var(--main-purple));
+            color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            box-shadow: 0 6px 18px rgba(94, 53, 177, 0.25);
+        }
+
+        .projecting-banner-text h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
+        }
+
+        .projecting-banner-text p {
+            margin: 0;
+            font-size: 0.98rem;
+            opacity: 0.92;
+        }
+
+        .projecting-banner-cta {
+            white-space: nowrap;
+        }
+
+        .btn-banner {
+            display: inline-block;
+            background-color: #fff;
+            color: var(--dark-purple);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+            .btn-banner:hover {
+                background-color: var(--light-purple);
+                transform: translateY(-2px);
+            }
+
+        /* FOOTER */
+        footer {
+            background-color: #1e1b2e;
+            color: #d1d5db;
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+            footer h3 {
+                color: var(--text-light);
+                margin: 0 0 10px 0;
+                font-size: 1.3rem;
+            }
+
+        .footer-contacts {
+            margin: 20px 0;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+            .footer-contacts a {
+                color: #b39ddb;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                transition: color 0.2s;
+            }
+
+                .footer-contacts a:hover {
+                    color: #ffffff;
+                    text-decoration: underline;
+                }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-top: 30px;
+            border-top: 1px solid #2d2a3e;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.1rem;
+            }
+
+            .hourly-rates, .projecting-banner {
+                flex-direction: column;
+            }
+
+            .rate-card {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-contacts {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .projecting-banner-cta {
+                width: 100%;
+            }
+
+            .btn-banner {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER MED UPPDATERAD MENY -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo-container">
+                    <img src="logo_Priva-Innovation.png" alt="Priva Innovation logotyp">
+                    <span class="site-name">Priva Innovation</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Hem</a></li>
+                        <li><a href="priser.html" class="active">Hem-IT & Smarta Hem</a></li>
+                        <li><a href="konsult.html">B2B Konsult</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero" id="hero-banner">
+        <canvas id="network-canvas"></canvas>
+        <div class="hero-content">
+            <div class="container">
+                <h1>HEM-IT & SMARTA ENERGISYSTEM</h1>
+                <p>Spetskompetens för wifi, nätverk, smarta hem och integrerad energistyrning för villaägare.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEM-IT & SMARTA HEM -->
+    <section id="hem-it">
+        <div class="container">
+            <h2 class="section-title">Hem-IT & Smarta Hem (Privatpersoner)</h2>
+
+            <div class="rut-intro">
+                <p>
+                    <strong>Dra nytta av 50 % RUT-avdrag på arbetskostnaden!</strong><br>
+                    Vi sköter all administration och ansökan direkt hos Skatteverket. Fast pris på överenskommet arbete – inga överraskningar.
+                </p>
+            </div>
+
+            <div class="pricing-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Tjänst</th>
+                            <th style="width: 45%;">Innehåll & Leverans</th>
+                            <th class="col-price" style="width: 15%;">Ditt pris efter RUT (50 %)</th>
+                            <th class="col-ord" style="width: 15%;">Ord. pris (inkl. moms)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="service-title">Router & WiFi Bas</td>
+                            <td>Uppackning, inkoppling, säkerhetskonfiguration (SSID, kryptering) och anslutning av upp till 3 enheter.</td>
+                            <td class="price-rut">629 kr</td>
+                            <td class="price-ord">1 258 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="service-title">WiFi & Nätverksoptimering</td>
+                            <td>Felsökning av täckning och svarstider, analys av radiokanaler, optimerad nodplacering och prestandatest.</td>
+                            <td class="price-rut">629 kr</td>
+                            <td class="price-ord">1 258 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="service-title">Komplett Mesh-installation</td>
+                            <td>Installation och optimering av heltäckande mesh-system (upp till 3 noder). Säkerställer stabil och sömlös roaming i hela bostaden.</td>
+                            <td class="price-rut">1 250 kr</td>
+                            <td class="price-ord">2 500 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="service-title">Smart Home – Startpaket</td>
+                            <td>Installation av hubb/gateway (Matter, Zigbee, Thread etc.) och parkoppling av upp till 5 smarta enheter (belysning, pluggar, sensorer).</td>
+                            <td class="price-rut">629 kr</td>
+                            <td class="price-ord">1 258 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="service-title">Smart Home – Villa / Avancerat</td>
+                            <td>Omfattande uppsättning av smarta hem-system (t.ex. Home Assistant eller Google Home). Skapande av scener, logik, sensorstyrning och smart energihantering.</td>
+                            <td class="price-rut">1 890 kr</td>
+                            <td class="price-ord">3 780 kr</td>
+                        </tr>
+                        <tr>
+                            <td class="service-title">Dator & Arbetsplats hemma</td>
+                            <td>Installation av dator, kringutrustning, säkerhetskopiering och smidig migrering av filer och konton.</td>
+                            <td class="price-rut">719 kr</td>
+                            <td class="price-ord">1 438 kr</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hourly-rates">
+                <div class="rate-card">
+                    <h3>Löpande support & Felsökning</h3>
+                    <div class="main-price">495 kr/tim</div>
+                    <p class="sub-price">efter RUT (Ordinarie pris: 990 kr/tim inkl. moms)</p>
+                </div>
+                <div class="rate-card">
+                    <h3>Framkörning</h3>
+                    <div class="main-price">Kostnadsfritt</div>
+                    <p class="sub-price">inom närområdet. Vid längre sträckor tillkommer milersättning enligt Skatteverkets norm.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PROJEKTERING & ENERGISYSTEM -->
+    <section id="energi-projektering" class="energy-section">
+        <div class="container">
+            <h2 class="section-title">Projektering & Smarta Energisystem</h2>
+            <p class="section-subtitle">
+                Ett modernt smart hem knyter ihop lokal energiproduktion, batterilagring och förbrukare i ett optimerat, automatiserat ekosystem.
+            </p>
+
+            <div class="energy-grid">
+                <div class="energy-card">
+                    <div class="icon">☀️</div>
+                    <h3>Solceller & Batterilagring</h3>
+                    <p>Projektering och integration av växelriktare och hembatterier. Dynamisk styrning mot nordiska elbörsens spotpriser för optimal egenanvändning, stödtjänster och smart effekttoppskapning.</p>
+                </div>
+
+                <div class="energy-card">
+                    <div class="icon">⚡</div>
+                    <h3>Värmepumpsstyrning</h3>
+                    <p>Integrerad styrning av frånlufts- och bergvärmepumpar via lokala API:er (Modbus, myUplink m.fl.) eller SG Ready. Styr värmeproduktion och varmvatten mot dygnets billigaste timmar och solproduktion.</p>
+                </div>
+
+                <div class="energy-card">
+                    <div class="icon">📡</div>
+                    <h3>IoT, Sensorik & Automation</h3>
+                    <p>Fintrimmad styrning baserad på närvaro, rumstemperaturer, luftkvalitet och dynamisk lastbalansering för elbilsladdning via protokoll som Matter, Thread och Zigbee.</p>
+                </div>
+
+                <div class="energy-card">
+                    <div class="icon">🏛️</div>
+                    <h3>Oberoende Projektering</h3>
+                    <p>Arkitektur och systemval inför nybygge eller renovering. Vi är oberoende av enskilda installatörer och leverantörer – du får en öppen och framtidssäker plattform byggd på öppna standarder.</p>
+                </div>
+            </div>
+
+            <div class="projecting-banner">
+                <div class="projecting-banner-text">
+                    <h3>Planerar du en solcells-, batteri- eller värmepumpsinstallation?</h3>
+                    <p>Få rätt styrning och integration på plats från start istället för isolerade silos. Vi erbjuder förstudier, systemdesign och turnkey-konfiguration.</p>
+                </div>
+                <div class="projecting-banner-cta">
+                    <a href="kontakt.html" class="btn-banner">Boka rådgivning</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <h3>Priva Innovation AB</h3>
+            <p style="margin: 5px 0 20px 0; color: #9ca3af;">Org.nr: 559243-7510 | Innehar F-skattsedel</p>
+
+            <div class="footer-contacts">
+                <div>
+                    ✉️ <a href="mailto:patrik@priva-innovation.eu">patrik@priva-innovation.eu</a>
+                </div>
+                <div>
+                    📞 <a href="tel:0768838332">076-883 83 32</a>
+                </div>
+                <div>
+                    🔗 <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">Följ oss på LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="footer-copy">
+                © 2026 Priva Innovation AB. <a href="konsult.html" style="color: #b39ddb; text-decoration: underline;">Söker du företagsrådgivning inom NIS2 & IT-arkitektur? Se våra B2B-tjänster här</a>.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERAKTIVITETSSKRIPT -->
+    <script>
+        (function () {
+            const canvas = document.getElementById('network-canvas');
+            const ctx = canvas.getContext('2d');
+            const hero = document.getElementById('hero-banner');
+
+            let width, height;
+            let particles = [];
+
+            const mouse = { x: null, y: null, radius: 140 };
+            const colors = ['rgba(77, 208, 225, ', 'rgba(129, 199, 132, ', 'rgba(179, 157, 219, '];
+
+            function resize() {
+                width = canvas.width = hero.offsetWidth;
+                height = canvas.height = hero.offsetHeight;
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+            });
+
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.radius = Math.random() * 2.2 + 1.2;
+                    this.vx = (Math.random() - 0.5) * 0.75;
+                    this.vy = (Math.random() - 0.5) * 0.75;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.alpha = Math.random() * 0.5 + 0.3;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color + this.alpha + ')';
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const count = Math.floor((width * height) / 10000);
+                for (let i = 0; i < Math.min(count, 70); i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function connect() {
+                const maxDistance = 115;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a + 1; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const dist = Math.hypot(dx, dy);
+
+                        if (dist < maxDistance) {
+                            const opacity = (1 - dist / maxDistance) * 0.25;
+                            ctx.strokeStyle = `rgba(179, 157, 219, ${opacity})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const mdx = particles[a].x - mouse.x;
+                        const mdy = particles[a].y - mouse.y;
+                        const mdist = Math.hypot(mdx, mdy);
+
+                        if (mdist < mouse.radius) {
+                            const opacity = (1 - mdist / mouse.radius) * 0.6;
+                            ctx.strokeStyle = `rgba(77, 208, 225, ${opacity})`;
+                            ctx.lineWidth = 1.3;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                connect();
+                requestAnimationFrame(animate);
+            }
+
+            resize();
+            initParticles();
+            animate();
+        })();
+    </script>
+</body>
+</html>
