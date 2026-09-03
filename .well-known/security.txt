@@ -1,0 +1,12 @@
+Contact: mailto:patrik@priva-innovation.eu
+Contact: tel:+46768838332
+Encryption: https://priva-innovation.eu/pgp-key.asc
+Preferred-Languages: sv, en
+Canonical: https://priva-innovation.eu/.well-known/security.txt
+Policy: https://priva-innovation.eu/privacy.html
+Expires: 2027-09-01T00:00:00.000Z
+
+# Cryptography & Architecture
+# Public Key Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC
+# Key ID: 3EB6 78C9 EB2E C9CC (0xEB2EC9CC)
+# "Kerckhoffs's principle: A cryptosystem should be secure even if everything about the system is public knowledge."
