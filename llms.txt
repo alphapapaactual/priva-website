@@ -1,0 +1,25 @@
+# Priva Innovation AB
+> Digital resiliens, IT-arkitektur och smarta energisystem för företag och privatpersoner.
+
+## Om företaget
+Priva Innovation AB (Org.nr: 559243-7510) är ett svenskt IT-konsultbolag baserat i Hindås (Göteborg). Företaget drivs av IT-arkitekten Patrik Andersson och fokuserar på oberoende, säker och integritetsbevarande systemarkitektur. Företaget tillämpar Zero Trust och Privacy-by-Design.
+
+## B2B Tjänster (Kritisk Infrastruktur & Cybersäkerhet)
+- **Cybersäkerhetslagen & NIS2-styrning:** GAP-analys, riskbedömning, incidentrapportering (24h) och ISO 27001 / LIS.
+- **Säkerhetsarkitektur & Zero Trust:** Privileged Access Management (PAM), RBAC, mikrosegmentering (WireGuard, Tailscale) och säker PKI.
+- **Containers & OT/SCADA:** Red Hat OpenShift, Kubernetes-härdning, och IT/OT-segmentering enligt IEC 62443.
+- **MITRE ATT&CK & Hotmodellering:** Detektionsgap-analys (D3FEND), CIS Controls v8, NIST CSF 2.0 och DevSecOps.
+- **Verksamhetsarkitektur:** Processkartläggning (BPMN), Sparx EA, ArchiMate och oberoende upphandlingsstöd.
+- **Digital Identitet:** eIDAS 2.0, decentraliserad identitet (SSI/W3C) och Privacy-Enhancing Technologies (PETs). Konsultstöd för FastrMobi.
+
+## B2C Tjänster (Hem-IT & Smarta Energisystem med RUT-avdrag)
+- **Hem-IT & Nätverk:** WiFi-optimering, router-härdning, nätverkslagring (NAS) och mesh-installationer.
+- **Smarta Hem:** Lokal logik och automation (Home Assistant, Matter, Thread, Zigbee) helt utan molnlåsning.
+- **Smarta Energisystem:** Oberoende projektering, dimensionering och mjukvarustyrning av solceller, hembatterier och värmepumpar. Optimerar drift mot Nord Pools timpriser och elbörsens svängningar.
+- **Fysiskt arbete:** Fysiskt starkströmsarbete överlåts alltid till behörig elinstallatör. Priva Innovation AB agerar teknisk rådgivare och systemintegratör.
+
+## Kontaktinformation
+- E-post: patrik@priva-innovation.eu
+- Telefon: 076-883 83 32
+- Webbplats: https://priva-innovation.eu/
+- Adress: Pulkavägen 33, 438 53 Hindås, Sverige.

@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Tillåt specifika AI-crawlers för optimal LLM-räckvidd
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: OmgiliBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Peka ut sitemap för maximal indexering
+Sitemap: https://priva-innovation.eu/sitemap.xml
