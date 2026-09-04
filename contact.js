@@ -67,8 +67,7 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
                 body: JSON.stringify({
                     name: name,
                     email: email,
-                    message: payload,
-                    pgpMessage: encryptedBody
+                    message: encryptedBody,
                 })
             });
 
