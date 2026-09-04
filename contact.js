@@ -58,7 +58,7 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
             return;
         }
 
-        submitBtn.innerHTML = '<span>🚀 Skickar till Azure...</span>';
+        submitBtn.innerHTML = '<span>📡 Överför krypterad payload...</span>';
 
         try {
             const response = await fetch(AZURE_CONTACT_URL, {
