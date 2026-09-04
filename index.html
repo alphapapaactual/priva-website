@@ -130,6 +130,10 @@
             <div class="footer-contacts">
                 <a href="mailto:patrik@priva-innovation.eu">✉️ patrik@priva-innovation.eu</a>
                 <a href="tel:0768838332">📞 076-883 83 32</a>
+                <a href="https://signal.me/#eu/TI0gpechOMJDopikfB9CbNccs5nqo3NAQaVHY5EkWUXDCje528RFa4bXzuuykCMC" target="_blank" rel="noopener noreferrer" class="signal-link">
+                    💬 Signal
+                    <img src="SignalUsernameQr.png" alt="Skanna för Signal" class="signal-qr-thumb">
+                </a>
                 <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
             </div>
             <div class="footer-legal">
@@ -138,7 +142,7 @@
         </div>
     </footer>
 
-    <!-- p5.js SKRIPT -->
+    <!-- 1. P5.JS REAKTOR -->
     <script>
         function setup() {
             let cnv = createCanvas(400, 400);
@@ -162,6 +166,129 @@
                 a(i, i / 235);
             }
         }
+    </script>
+
+    <!-- 2. INTERAKTIVT CYBER-NÄTVERK BAKOM HERO -->
+    <script>
+        (function () {
+            const canvas = document.getElementById('cyber-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const hero = document.querySelector('.hero-section');
+            if (!hero) return;
+
+            let width, height;
+            let nodes = [];
+            const mouse = { x: null, y: null, radius: 160 };
+
+            function resize() {
+                width = canvas.width = hero.offsetWidth;
+                height = canvas.height = hero.offsetHeight;
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                initNodes();
+            });
+
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class CyberNode {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.radius = Math.random() > 0.85 ? 2.8 : 1.6;
+                    this.isCore = Math.random() > 0.85;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.isCore ? '#00f0ff' : 'rgba(157, 78, 221, 0.85)';
+                    ctx.shadowBlur = this.isCore ? 10 : 4;
+                    ctx.shadowColor = this.isCore ? '#00f0ff' : '#9d4edd';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            function initNodes() {
+                nodes = [];
+                const count = Math.floor((width * height) / 12000);
+                for (let i = 0; i < Math.min(count, 65); i++) {
+                    nodes.push(new CyberNode());
+                }
+            }
+
+            function renderConnections() {
+                const maxDist = 125;
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const dx = nodes[i].x - nodes[j].x;
+                        const dy = nodes[i].y - nodes[j].y;
+                        const dist = Math.hypot(dx, dy);
+
+                        if (dist < maxDist) {
+                            const alpha = (1 - dist / maxDist) * 0.22;
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const mdx = nodes[i].x - mouse.x;
+                        const mdy = nodes[i].y - mouse.y;
+                        const mdist = Math.hypot(mdx, mdy);
+
+                        if (mdist < mouse.radius) {
+                            const alpha = (1 - mdist / mouse.radius) * 0.7;
+                            ctx.strokeStyle = `rgba(0, 255, 102, ${alpha})`;
+                            ctx.lineWidth = 1.2;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function loop() {
+                ctx.clearRect(0, 0, width, height);
+                nodes.forEach(n => {
+                    n.update();
+                    n.draw();
+                });
+                renderConnections();
+                requestAnimationFrame(loop);
+            }
+
+            resize();
+            initNodes();
+            loop();
+        })();
     </script>
 </body>
 </html>

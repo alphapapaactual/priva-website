@@ -638,26 +638,37 @@ footer {
     padding-top: 20px;
 }
 
+/* SIGNAL HOVER & QR-ZOOM */
 .signal-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     position: relative;
+    color: #b39ddb;
+    text-decoration: none;
+    transition: color 0.2s;
 }
+
+    .signal-link:hover {
+        color: #ffffff;
+    }
 
 .signal-qr-thumb {
     height: 22px;
-    width: 22px;
+    width: auto;
     border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background: #fff;
+    transform-origin: bottom center;
+    vertical-align: middle;
 }
 
 .signal-link:hover .signal-qr-thumb {
-    transform: scale(6) translateY(-10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    z-index: 100;
+    /* translateY(-20px) lyfter kortet 20px ovanför texten, scale(18) dubblerar storleken */
+    transform: translateY(-20px) scale(18);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
+    z-index: 1000;
 }
 
 /* RESPONSIVT (MOBIL) */

@@ -11,10 +11,41 @@
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt - Priva Innovation AB</title>
+    <title>Kontakt & Bolagsuppgifter - Priva Innovation AB</title>
     <!-- OpenPGP.js för klientsidekryptering -->
     <script src="https://cdn.jsdelivr.net/npm/openpgp@5.11.0/dist/openpgp.min.js"></script>
     <link rel="stylesheet" href="style-light.css">
+    <style>
+        .legal-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin-top: 15px;
+            background: transparent;
+            min-width: unset;
+        }
+
+            .legal-data-table tr {
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .legal-data-table td {
+                padding: 8px 4px;
+                border: none;
+            }
+
+                .legal-data-table td:first-child {
+                    color: var(--text-muted);
+                    font-weight: 600;
+                    width: 42%;
+                }
+
+                .legal-data-table td:last-child {
+                    color: var(--text-dark);
+                    text-align: right;
+                    font-family: var(--font-mono, monospace);
+                }
+    </style>
 </head>
 <body>
 
@@ -44,7 +75,7 @@
         <div class="hero-content">
             <div class="container">
                 <h1>KONTAKTA OSS</h1>
-                <p>Hör av dig för rådgivning, offertförfrågan eller tidsbokning.</p>
+                <p>Hör av dig för rådgivning, förfrågningar eller tidsbokning.</p>
             </div>
         </div>
     </div>
@@ -53,9 +84,10 @@
         <div class="container">
             <div class="contact-grid">
 
+                <!-- DIREKTKONTAKT & LAGSTADGAD BOLAGSINFORMATION -->
                 <div class="contact-info">
                     <h2>Direktkontakt</h2>
-                    <p>Har du funderingar kring smarta hem, energistyrning eller IT- och informationssäkerhet? Kontakta oss direkt så återkopplar vi så snart som möjligt.</p>
+                    <p>Kontakta oss via direktkanalerna nedan eller skicka ett meddelande via vårt krypterade formulär.</p>
 
                     <div class="info-item">
                         <div class="icon">✉️</div>
@@ -81,16 +113,52 @@
                         </div>
                     </div>
 
-                    <div class="info-item">
-                        <div class="icon">🏢</div>
+                    <div class="info-item" style="margin-bottom: 10px;">
+                        <div class="icon">📍</div>
                         <div>
-                            <strong>Bolagsuppgifter</strong>
-                            <span>Priva Innovation AB</span><br>
-                            <span style="font-size: 0.85rem; color: var(--text-muted);">Org.nr: 559243-7510 (F-skatt)</span>
+                            <strong>Post- och besöksadress</strong>
+                            <span>Pulkavägen 33</span><br>
+                            <span>438 53 Hindås</span>
                         </div>
+                    </div>
+
+                    <!-- FORMALIA & REGISTERUPPGIFTER (Aktiebolagslagen & E-handelslagen) -->
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                        <strong style="color: var(--dark-purple); font-size: 0.95rem; display: block; margin-bottom: 8px;">
+                            Bolagsfakta & Registrering
+                        </strong>
+                        <table class="legal-data-table">
+                            <tbody>
+                                <tr>
+                                    <td>Företagsnamn</td>
+                                    <td>Priva Innovation AB</td>
+                                </tr>
+                                <tr>
+                                    <td>Organisationsnr</td>
+                                    <td>559243-7510</td>
+                                </tr>
+                                <tr>
+                                    <td>Momsreg.nr (VAT)</td>
+                                    <td>SE559243751001</td>
+                                </tr>
+                                <tr>
+                                    <td>Bolagssäte</td>
+                                    <td>Göteborgs kommun</td>
+                                </tr>
+                                <tr>
+                                    <td>Län</td>
+                                    <td>Västra Götalands län</td>
+                                </tr>
+                                <tr>
+                                    <td>Skatteform</td>
+                                    <td>Innehar F-skattsedel</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
+                <!-- KRYPTERAT FORMULÄR -->
                 <div class="form-card">
                     <h2>Skicka ett meddelande</h2>
 
@@ -131,7 +199,7 @@
                                 <option value="" disabled selected>Välj kategori...</option>
                                 <option value="Hem-IT / WiFi / Smarta hem (RUT)">Hem-IT, WiFi & Smarta hem (RUT)</option>
                                 <option value="Projektering Smarta energisystem">Projektering Smarta energisystem (Sol, batteri, värmepump)</option>
-                                <option value="Konsultuppdrag IT-/Informationssäkerhet (B2B)">Konsultuppdrag IT-/Informationssäkerhet (B2B)</option>
+                                <option value="Konsultuppdrag IT-/Informationssäkerhet (B2B)">Konsultuppdrag Cybersäkerhet & IT-Arkitektur (B2B)</option>
                                 <option value="Övrigt">Övrigt</option>
                             </select>
                         </div>
@@ -160,21 +228,20 @@
         </div>
     </section>
 
+    <!-- FOOTER MED SIGNAL -->
     <footer>
         <div class="container">
             <h3>Priva Innovation AB</h3>
-            <p style="margin: 5px 0 20px 0; color: #9ca3af;">Org.nr: 559243-7510 | Innehar F-skattsedel</p>
+            <p style="margin: 5px 0 20px 0; color: #9ca3af;">Org.nr: 559243-7510 | Innehar F-skattsedel | Göteborgs kommun</p>
 
             <div class="footer-contacts">
-                <div>
-                    ✉️ <a href="mailto:patrik@priva-innovation.eu">patrik@priva-innovation.eu</a>
-                </div>
-                <div>
-                    📞 <a href="tel:0768838332">076-883 83 32</a>
-                </div>
-                <div>
-                    🔗 <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">Följ oss på LinkedIn</a>
-                </div>
+                <a href="mailto:patrik@priva-innovation.eu">✉️ patrik@priva-innovation.eu</a>
+                <a href="tel:0768838332">📞 076-883 83 32</a>
+                <a href="https://signal.me/#eu/TI0gpechOMJDopikfB9CbNccs5nqo3NAQaVHY5EkWUXDCje528RFa4bXzuuykCMC" target="_blank" rel="noopener noreferrer" class="signal-link">
+                    💬 Signal
+                    <img src="SignalUsernameQr.png" alt="Skanna för Signal" class="signal-qr-thumb">
+                </a>
+                <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
             </div>
 
             <div class="footer-copy">
@@ -186,7 +253,7 @@
     <!-- Globala skript (DevTools console banner m.m.) -->
     <script src="script.js"></script>
 
-    <!-- LOGIK FÖR PGP-KRYPTERING OCH DYNAMISK STATUSVY -->
+    <!-- LOGIK FÖR PGP-KRYPTERING OCH STATUSVY -->
     <script>
         const AZURE_CONTACT_URL = "https://priva-contact-api-ebg2hxhqdbg5beg7.swedencentral-01.azurewebsites.net/api/contact";
 
@@ -198,12 +265,10 @@
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // 1. Kontrollera honeypot
             if (document.getElementById('gotcha').value !== "") {
                 return;
             }
 
-            // 2. Visuell feedback direkt vid klick
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>🔒 Hämtar nyckel & krypterar...</span>';
             statusDiv.style.display = 'none';
@@ -230,12 +295,10 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
             let encryptedBody = null;
 
             try {
-                // 3. Hämta den publika nyckeln dynamiskt från din rotfil!
                 const keyResponse = await fetch('https://priva-innovation.eu/pgp-key.asc');
                 if (!keyResponse.ok) throw new Error('Kunde inte hämta publika nyckelfilen.');
                 const publicKeyArmored = (await keyResponse.text()).trim();
-                console.log("Hämtat innehåll från servern:", publicKeyArmored);
-                // 4. Kryptera payload med OpenPGP.js
+
                 const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
                 encryptedBody = await openpgp.encrypt({
                     message: await openpgp.createMessage({ text: payload }),
@@ -254,7 +317,6 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
             submitBtn.innerHTML = '<span>🚀 Skickar till Azure...</span>';
 
             try {
-                // 5. Skicka till Azure Function
                 const response = await fetch(AZURE_CONTACT_URL, {
                     method: 'POST',
                     headers: {
@@ -272,7 +334,6 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
                     throw new Error(`Serverfel (HTTP ${response.status})`);
                 }
 
-                // 6. Framgång: Byt ut formuläret mot bekräftelsevyn
                 formCard.innerHTML = `
                         <div style="text-align: center; padding: 25px 10px;">
                             <div style="font-size: 3.2rem; margin-bottom: 15px;">🛡️</div>
