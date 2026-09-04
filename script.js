@@ -66,3 +66,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+/* ==========================================================================
+   Mobilmeny (Hamburgarmeny)
+   ========================================================================== */
+function setupMobileMenu() {
+    const menuBtn = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    if (!menuBtn || !nav) return;
+
+    menuBtn.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        menuBtn.classList.toggle('is-active');
+        nav.classList.toggle('nav-open');
+    };
+
+    // Stäng menyn automatiskt om besökaren klickar utanför
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+            nav.classList.remove('nav-open');
+            menuBtn.classList.remove('is-active');
+        }
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMobileMenu);
+} else {
+    setupMobileMenu();
+}

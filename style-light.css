@@ -710,57 +710,21 @@ footer {
     }
 }
 /* ==========================================================================
-   Responsiv mobiloptimering
+   Mobilresponsivitet & Hamburgarmeny (Ljust tema)
    ========================================================================== */
-@media (max-width: 768px) {
-    /* Skala ner gigantiska hero-rubriker */
-    .hero h1,
-    .hero-section h1,
-    #hero-banner h1 {
-        font-size: 1.85rem !important;
-        line-height: 1.25 !important;
-        letter-spacing: -0.5px;
-    }
-
-    /* Centrera animationen på förstasidan och ta bort förskjutningen */
-    .hero-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .canvas-frame {
-        margin: 20px auto 0 auto !important;
-        transform: none !important; /* Tar bort translateX(-25px) på små skärmar */
-        display: flex;
-        justify-content: center;
-        max-width: 100%;
-    }
-
-    #canvas-container canvas {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-
-    /* Förhindra att element trycks ut ur skärmen på konsult.html */
-    .terminal-status-bar {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .resilience-bar {
-        flex-direction: column;
-        text-align: left;
-        padding: 16px;
-    }
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
 }
-/* Grundläge (dator): dölj hamburgarknappen */
+
 .menu-toggle {
     display: none;
     background: transparent;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     flex-direction: column;
     gap: 5px;
     z-index: 1001;
@@ -768,54 +732,82 @@ footer {
 
     .menu-toggle span {
         display: block;
-        width: 24px;
+        width: 22px;
         height: 2px;
-        background-color: currentColor;
+        background-color: #2e1065;
         transition: 0.3s ease;
     }
 
-/* Mobilläge */
 @media (max-width: 768px) {
+    header {
+        position: relative !important;
+        overflow: visible !important;
+    }
+
     .header-content {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        position: relative !important;
+    }
+
+    .logo-container {
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+        width: auto !important;
     }
 
     .menu-toggle {
-        display: flex;
-        color: inherit;
+        display: flex !important;
+        margin: 0 !important;
     }
 
-    /* Fäll ut navigeringen som en flytande panel */
+    /* Skala ner stora rubriker */
+    .hero h1,
+    #hero-banner h1 {
+        font-size: 1.85rem !important;
+        line-height: 1.25 !important;
+    }
+
+    /* Utfällbar mobilmeny */
     nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(10, 11, 16, 0.98);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: none;
-        padding: 20px;
-        backdrop-filter: blur(10px);
-        z-index: 1000;
+        display: none !important;
     }
 
-    /* Anpassning för ljust tema */
-    body:has(link[href*="style-light"]) nav,
-    .style-light nav {
-        background: rgba(255, 255, 255, 0.98);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
+        nav.nav-open {
+            display: block !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            box-sizing: border-box;
+            background: #ffffff !important;
+            border-bottom: 2px solid #5e35b1;
+            padding: 20px !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            z-index: 99999 !important;
+        }
 
-    nav.nav-open {
-        display: block;
-    }
+            nav.nav-open ul {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 16px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                list-style: none !important;
+                text-align: center !important;
+            }
 
-    nav ul {
-        flex-direction: column;
-        gap: 16px;
-        align-items: center;
-    }
+                nav.nav-open ul li a {
+                    display: block !important;
+                    font-size: 1.05rem !important;
+                    color: #1e293b !important;
+                    font-weight: 600 !important;
+                    text-decoration: none !important;
+                    padding: 8px 0 !important;
+                }
 }

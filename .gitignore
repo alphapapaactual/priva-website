@@ -1,0 +1,8 @@
+# Visual Studio temporära filer & cache
+.vs/
+*.sqlite*
+ProjectSettings.json
+
+# Lokala backup-kopior
+*- kopia*
+* - kopia*
