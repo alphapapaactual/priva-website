@@ -2,9 +2,10 @@
    Säkerhetsbanner (DevTools Console)
    ========================================================================== */
 console.log(
-    `%c PRIVA INNOVATION %c Zero-Trust & Digital Identity\n` +
+    `%c PRIVA INNOVATION %c Zero-Trust Architecture\n` +
     `%c[!] Inspekterar du trafiken?\n` +
-    `Vi tillämpar klientside-kryptering via OpenPGP (RFC 4880 / RFC 9580) och lösenordslös Managed Identity via Microsoft Graph.\n` +
+    `Vi tillämpar asymmetrisk klientside-kryptering via OpenPGP (RFC 4880 / RFC 9580).\n` +
+    `Zero secrets stored in client payload.\n` +
     `PGP Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC\n` +
     `Säkerhetsrapporter: /.well-known/security.txt`,
     "background: #0f172a; color: #38bdf8; font-weight: bold; font-size: 14px; padding: 4px 8px; border-radius: 3px 0 0 3px;",
