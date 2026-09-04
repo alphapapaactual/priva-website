@@ -745,3 +745,113 @@ footer {
     margin-top: 32px; /* Flyttar ner rutan från den övre linjen */
     transform: translateX(-25px); /* Drar rutan kontrollerat åt vänster */
 }
+/* ==========================================================================
+   Responsiv mobiloptimering
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Skala ner gigantiska hero-rubriker */
+    .hero h1,
+    .hero-section h1,
+    #hero-banner h1 {
+        font-size: 1.85rem !important;
+        line-height: 1.25 !important;
+        letter-spacing: -0.5px;
+    }
+
+    /* Centrera animationen på förstasidan och ta bort förskjutningen */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .canvas-frame {
+        margin: 20px auto 0 auto !important;
+        transform: none !important; /* Tar bort translateX(-25px) på små skärmar */
+        display: flex;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    #canvas-container canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Förhindra att element trycks ut ur skärmen på konsult.html */
+    .terminal-status-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .resilience-bar {
+        flex-direction: column;
+        text-align: left;
+        padding: 16px;
+    }
+}
+/* Grundläge (dator): dölj hamburgarknappen */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+}
+
+    .menu-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: currentColor;
+        transition: 0.3s ease;
+    }
+
+/* Mobilläge */
+@media (max-width: 768px) {
+    .header-content {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+        color: inherit;
+    }
+
+    /* Fäll ut navigeringen som en flytande panel */
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10, 11, 16, 0.98);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+    }
+
+    /* Anpassning för ljust tema */
+    body:has(link[href*="style-light"]) nav,
+    .style-light nav {
+        background: rgba(255, 255, 255, 0.98);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    nav.nav-open {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+}
