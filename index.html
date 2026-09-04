@@ -62,8 +62,12 @@
     <!-- MAIN INNEHÅLL -->
     <main class="container">
 
+        <!-- SUPER-CONTAINER: Håller canvas, text, reaktor OCH kort -->
         <div class="hero-section">
+            
             <canvas id="cyber-canvas"></canvas>
+
+            <!-- 1. TEXT (Vänster på dator, Överst på mobil) -->
             <div class="hero-left">
                 <div class="status-badge">
                     <div class="status-indicator"></div>
@@ -78,53 +82,52 @@
                 </div>
             </div>
 
-            <!-- p5.js GENERATIV REAKTOR -->
+            <!-- 2. PORTALVAL (Botten på dator, Mitten på mobil) -->
+            <div class="portal-grid">
+                <!-- PORTAL 1: PRIVAT / RUT -->
+                <a href="priser.html" class="portal-card">
+                    <div>
+                        <div class="portal-tag">PRIVATPERSONER // RUT (50 %)</div>
+                        <h3>Hem-IT & Smarta Energisystem</h3>
+                        <p>Fasta paketlösningar för wifi, mesh, smarta hem samt integrerad styrning av solceller, hembatterier och värmepumpar.</p>
+                    </div>
+                    <div class="portal-link-text">
+                        Utforska paket & priser <span>→</span>
+                    </div>
+                </a>
+
+                <!-- PORTAL 2: B2B / KONSULT -->
+                <a href="konsult.html" class="portal-card">
+                    <div>
+                        <div class="portal-tag">FÖRETAG // KRITISK INFRASTRUKTUR</div>
+                        <h3>IT-Arkitektur & Cyberresiliens</h3>
+                        <p>Strategisk rådgivning och teknisk arkitektur. Specialiststöd inom NIS2, Zero Trust/PAM, OpenShift och ledningssystem (LIS).</p>
+                    </div>
+                    <div class="portal-link-text">
+                        Granska kompetenser & modeller <span>→</span>
+                    </div>
+                </a>
+
+                <!-- PORTAL 3: KONTAKT -->
+                <a href="kontakt.html" class="portal-card">
+                    <div>
+                        <div class="portal-tag">DIREKTKONTAKT // DIALOG</div>
+                        <h3>Initiera Uppdrag eller Fråga</h3>
+                        <p>Behöver du rådgivning inför en installation, förstudie eller offert på konsultstöd? Hör av dig via vårt GDPR-säkrade formulär.</p>
+                    </div>
+                    <div class="portal-link-text">
+                        Gå till kontaktsidan <span>→</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 3. p5.js REAKTOR (Höger på dator, Underst på mobil) -->
             <div class="canvas-frame">
                 <div class="canvas-hud-wrapper">
                     <div id="canvas-container"></div>
                     <div class="canvas-caption">QUANTUM FLUX MATRIX // ACTIVE</div>
                 </div>
             </div>
-        </div>
-
-        <!-- PORTALVAL -->
-        <div class="portal-grid">
-
-            <!-- PORTAL 1: PRIVAT / RUT -->
-            <a href="priser.html" class="portal-card">
-                <div>
-                    <div class="portal-tag">PRIVATPERSONER // RUT (50 %)</div>
-                    <h3>Hem-IT & Smarta Energisystem</h3>
-                    <p>Fasta paketlösningar för wifi, mesh, smarta hem samt integrerad styrning av solceller, hembatterier och värmepumpar.</p>
-                </div>
-                <div class="portal-link-text">
-                    Utforska paket & priser <span>→</span>
-                </div>
-            </a>
-
-            <!-- PORTAL 2: B2B / KONSULT -->
-            <a href="konsult.html" class="portal-card">
-                <div>
-                    <div class="portal-tag">FÖRETAG // KRITISK INFRASTRUKTUR</div>
-                    <h3>IT-Arkitektur & Cyberresiliens</h3>
-                    <p>Strategisk rådgivning och teknisk arkitektur. Specialiststöd inom NIS2, Zero Trust/PAM, OpenShift och ledningssystem (LIS).</p>
-                </div>
-                <div class="portal-link-text">
-                    Granska kompetenser & modeller <span>→</span>
-                </div>
-            </a>
-
-            <!-- PORTAL 3: KONTAKT -->
-            <a href="kontakt.html" class="portal-card">
-                <div>
-                    <div class="portal-tag">DIREKTKONTAKT // DIALOG</div>
-                    <h3>Initiera Uppdrag eller Fråga</h3>
-                    <p>Behöver du rådgivning inför en installation, förstudie eller offert på konsultstöd? Hör av dig via vårt GDPR-säkrade formulär.</p>
-                </div>
-                <div class="portal-link-text">
-                    Gå till kontaktsidan <span>→</span>
-                </div>
-            </a>
 
         </div>
 
