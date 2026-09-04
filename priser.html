@@ -13,7 +13,7 @@
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo-container">
-                    <img src="logo_Priva-Innovation.png" alt="Priva Innovation logotyp" onerror="if (!this.dataset.fallback) { this.dataset.fallback = true; this.src = 'logo.png'; }">
+                    class="brand-logo">
                     <span class="site-name">Priva Innovation</span>
                 </a>
                 <nav>
@@ -223,125 +223,7 @@
         </div>
     </footer>
 
-    <!-- INTERAKTIVITETSSKRIPT -->
-    <script>
-        (function () {
-            const canvas = document.getElementById('network-canvas');
-            const ctx = canvas.getContext('2d');
-            const hero = document.getElementById('hero-banner');
-
-            let width, height;
-            let particles = [];
-
-            const mouse = { x: null, y: null, radius: 140 };
-            const colors = ['rgba(77, 208, 225, ', 'rgba(129, 199, 132, ', 'rgba(179, 157, 219, '];
-
-            function resize() {
-                width = canvas.width = hero.offsetWidth;
-                height = canvas.height = hero.offsetHeight;
-            }
-
-            window.addEventListener('resize', () => {
-                resize();
-                initParticles();
-            });
-
-            hero.addEventListener('mousemove', (e) => {
-                const rect = hero.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-            });
-
-            hero.addEventListener('mouseleave', () => {
-                mouse.x = null;
-                mouse.y = null;
-            });
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.radius = Math.random() * 2.2 + 1.2;
-                    this.vx = (Math.random() - 0.5) * 0.75;
-                    this.vy = (Math.random() - 0.5) * 0.75;
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                    this.alpha = Math.random() * 0.5 + 0.3;
-                }
-
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color + this.alpha + ')';
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particles = [];
-                const count = Math.floor((width * height) / 10000);
-                for (let i = 0; i < Math.min(count, 70); i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function connect() {
-                const maxDistance = 115;
-                for (let a = 0; a < particles.length; a++) {
-                    for (let b = a + 1; b < particles.length; b++) {
-                        const dx = particles[a].x - particles[b].x;
-                        const dy = particles[a].y - particles[b].y;
-                        const dist = Math.hypot(dx, dy);
-
-                        if (dist < maxDistance) {
-                            const opacity = (1 - dist / maxDistance) * 0.25;
-                            ctx.strokeStyle = `rgba(179, 157, 219, ${opacity})`;
-                            ctx.lineWidth = 1;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[a].x, particles[a].y);
-                            ctx.lineTo(particles[b].x, particles[b].y);
-                            ctx.stroke();
-                        }
-                    }
-
-                    if (mouse.x !== null && mouse.y !== null) {
-                        const mdx = particles[a].x - mouse.x;
-                        const mdy = particles[a].y - mouse.y;
-                        const mdist = Math.hypot(mdx, mdy);
-
-                        if (mdist < mouse.radius) {
-                            const opacity = (1 - mdist / mouse.radius) * 0.6;
-                            ctx.strokeStyle = `rgba(77, 208, 225, ${opacity})`;
-                            ctx.lineWidth = 1.3;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[a].x, particles[a].y);
-                            ctx.lineTo(mouse.x, mouse.y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
-                connect();
-                requestAnimationFrame(animate);
-            }
-
-            resize();
-            initParticles();
-            animate();
-        })();
-    </script>
+    <script src="script.js"></script>
+    <script src="network.js"></script>
 </body>
 </html>

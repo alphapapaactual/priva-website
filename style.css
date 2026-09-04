@@ -741,3 +741,7 @@ footer {
     box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
     z-index: 1000;
 }
+.canvas-frame {
+    margin-top: 32px; /* Flyttar ner rutan från den övre linjen */
+    transform: translateX(-25px); /* Drar rutan kontrollerat åt vänster */
+}

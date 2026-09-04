@@ -13,7 +13,7 @@ console.log(
 );
 
 /* ==========================================================================
-   Canvas-animation (p5.js)
+   Canvas-animation (p5.js) - Kvantflux-reaktor
    ========================================================================== */
 let t = 0;
 
@@ -21,7 +21,8 @@ function setup() {
     const container = document.getElementById("canvas-container");
     if (!container) return;
 
-    const cnv = createCanvas(400, 400);
+    // Något kompaktare format (340x340 px istället för 400x400 px)
+    const cnv = createCanvas(340, 340);
     cnv.parent(container);
 }
 
@@ -35,10 +36,33 @@ function draw() {
     if (!document.getElementById("canvas-container")) return;
 
     background(0);
+    push();
+    // Skalar ned koordinaterna proportionerligt så centrum förblir orört
+    scale(340 / 400);
     stroke(255);
     strokeWeight(2);
 
     for (t += PI / 240, i = 1e4; i--;) {
         a(i, i / 235);
     }
+    pop();
 }
+
+/* ==========================================================================
+   Logotyp-fallback (Ersätter inline onerror)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const logos = document.querySelectorAll('.brand-logo, .logo-container img');
+    logos.forEach(img => {
+        img.addEventListener('error', function () {
+            if (!this.dataset.fallback) {
+                this.dataset.fallback = 'true';
+                this.src = 'logo.png';
+            } else {
+                this.style.display = 'none';
+                const svgLogo = document.getElementById('cyber-svg-logo');
+                if (svgLogo) svgLogo.style.display = 'block';
+            }
+        });
+    });
+});
