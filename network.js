@@ -5,7 +5,6 @@
     const container = canvas.closest('.hero') || canvas.closest('.hero-section') || document.getElementById('hero-banner');
     if (!container) return;
 
-    // Detektera ljust vs mörkt tema
     const isLight = document.querySelector('link[href*="style-light"]') !== null;
 
     let width, height;
@@ -76,7 +75,6 @@
     function renderConnections() {
         const maxDist = 120;
         for (let i = 0; i < nodes.length; i++) {
-            // Koppling mellan nod och nod
             for (let j = i + 1; j < nodes.length; j++) {
                 const dx = nodes[i].x - nodes[j].x;
                 const dy = nodes[i].y - nodes[j].y;
@@ -95,7 +93,6 @@
                 }
             }
 
-            // Koppling mot muspekaren (fixad så att den drar till musen)
             if (mouse.x !== null && mouse.y !== null) {
                 const mdx = nodes[i].x - mouse.x;
                 const mdy = nodes[i].y - mouse.y;

@@ -31,7 +31,6 @@ body {
     flex-direction: column;
 }
 
-    /* Scanlines */
     body::before {
         content: " ";
         display: block;
@@ -133,10 +132,13 @@ main {
     gap: 50px;
     align-items: center;
     margin-bottom: 70px;
+    overflow: hidden; /* Fixar nätverket så det inte svämmar över korten */
+    border-radius: 12px;
 }
+
 .hero-left, .canvas-frame {
     position: relative;
-    z-index: 2; /* Text och reaktor hamnar framför nätverket */
+    z-index: 2;
 }
 
 .status-badge {
@@ -201,12 +203,13 @@ main {
     max-width: 540px;
 }
 
-/* p5.js Canvas Container */
 .canvas-frame {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 32px;
+    transform: translateX(-25px);
 }
 
 .canvas-hud-wrapper {
@@ -452,7 +455,7 @@ main {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Ändrat från space-between för att ta bort de ojämna glappen */
+    justify-content: flex-start;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -484,7 +487,7 @@ main {
     margin: 0 0 12px 0;
     font-size: 1.3rem;
     line-height: 1.3;
-    min-height: 3.4rem; /* Låser höjden för 2 rader rubrik på samtliga kort */
+    min-height: 3.4rem;
 }
 
 .cyber-card p {
@@ -492,7 +495,7 @@ main {
     font-size: 0.95rem;
     margin: 0 0 20px 0;
     line-height: 1.5;
-    min-height: 4.8rem; /* Låser höjden för ingressen så att avdelaren och listan börjar exakt i linje */
+    min-height: 4.8rem;
 }
 
 .cyber-card ul {
@@ -691,24 +694,14 @@ footer {
             color: #ffffff;
         }
 
-@media (max-width: 920px) {
-    .hero-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .hero-desc {
-        margin: 0 auto 30px;
-    }
-
-    .pricing-section {
-        grid-template-columns: 1fr;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
+.footer-copy {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-top: 30px;
+    border-top: 1px solid #2d2a3e;
+    padding-top: 20px;
 }
+
 /* SIGNAL HOVER & QR-ZOOM */
 .signal-link {
     display: inline-flex;
@@ -736,15 +729,30 @@ footer {
 }
 
 .signal-link:hover .signal-qr-thumb {
-    /* translateY(-20px) lyfter kortet 20px ovanför texten, scale(18) dubblerar storleken */
     transform: translateY(-20px) scale(18);
     box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
     z-index: 1000;
 }
-.canvas-frame {
-    margin-top: 32px; /* Flyttar ner rutan från den övre linjen */
-    transform: translateX(-25px); /* Drar rutan kontrollerat åt vänster */
+
+@media (max-width: 920px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-desc {
+        margin: 0 auto 30px;
+    }
+
+    .pricing-section {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
 }
+
 /* ==========================================================================
    Mobilresponsivitet & Hamburgarmeny (Mörkt tema)
    ========================================================================== */
@@ -755,7 +763,7 @@ html, body {
 }
 
 .menu-toggle {
-    display: none;
+    display: none !important; /* Döljs strikt på datorn */
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
@@ -775,6 +783,34 @@ html, body {
     }
 
 @media (max-width: 768px) {
+    /* Skala ner stora rubriker */
+    .hero h1,
+    .hero-section h1,
+    #hero-banner h1 {
+        font-size: 1.85rem !important;
+        line-height: 1.25 !important;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .canvas-frame {
+        margin: 20px auto 0 auto !important;
+        transform: none !important;
+        display: flex;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    #canvas-container canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
     header {
         position: relative !important;
         overflow: visible !important;
@@ -835,7 +871,6 @@ html, body {
                     padding: 8px 0 !important;
                 }
 
-    /* FIX FÖR KONSULT.HTML: Justera lådan och förhindra avklippt text */
     .container {
         width: 100% !important;
         max-width: 100% !important;
@@ -853,6 +888,7 @@ html, body {
         margin: 24px 0 !important;
         padding: 16px !important;
         gap: 10px !important;
+        text-align: left;
     }
 
     .resilience-text {

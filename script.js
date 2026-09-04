@@ -21,7 +21,6 @@ function setup() {
     const container = document.getElementById("canvas-container");
     if (!container) return;
 
-    // Något kompaktare format (340x340 px istället för 400x400 px)
     const cnv = createCanvas(340, 340);
     cnv.parent(container);
 }
@@ -37,7 +36,6 @@ function draw() {
 
     background(0);
     push();
-    // Skalar ned koordinaterna proportionerligt så centrum förblir orört
     scale(340 / 400);
     stroke(255);
     strokeWeight(2);
@@ -66,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 /* ==========================================================================
    Mobilmeny (Hamburgarmeny)
    ========================================================================== */
