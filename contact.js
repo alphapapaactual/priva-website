@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const AZURE_CONTACT_URL = "https://priva-contact-api-ebg2hxhqdbg5beg7.swedencentral-01.azurewebsites.net/api/contact";
+    const EXPECTED_FINGERPRINT = "ae32b178aab019190c805b4e3eb678c9eb2ec9cc"; // Gemener, utan mellanslag
 
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -33,17 +34,23 @@ Område: ${category}
 MEDDELANDE:
 --------------------------------------------------
 ${message}
---------------------------------------------------
-Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
+--------------------------------------------------`;
 
         let encryptedBody = null;
 
         try {
             const keyResponse = await fetch('https://priva-innovation.eu/pgp-key.asc');
-            if (!keyResponse.ok) throw new Error('Kunde inte hämta publika nyckelfilen.');
+            if (!keyResponse.ok) throw new Error('Kunde inte hämta den publika krypteringsnyckeln.');
             const publicKeyArmored = (await keyResponse.text()).trim();
 
             const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+            
+            // Verifiera att nyckeln matchar förväntat fingeravtryck innan kryptering
+            const keyFingerprint = publicKey.getFingerprint().toLowerCase();
+            if (keyFingerprint !== EXPECTED_FINGERPRINT) {
+                throw new Error('Säkerhetsvarning: Nyckelns fingeravtryck matchar inte!');
+            }
+
             encryptedBody = await openpgp.encrypt({
                 message: await openpgp.createMessage({ text: payload }),
                 encryptionKeys: publicKey
@@ -64,38 +71,39 @@ Fingerprint: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC`;
             const response = await fetch(AZURE_CONTACT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                // Skicka endast krypterad payload om strikt E2E eftersträvas
                 body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    message: encryptedBody,
+                    encryptedMessage: encryptedBody,
+                    _gotcha: document.getElementById('gotcha').value // Skickas med för backend-spärr
                 })
             });
 
             if (!response.ok) throw new Error(`Serverfel (HTTP ${response.status})`);
 
+            // Återställ kortet och använd textContent för att förhindra XSS
             formCard.innerHTML = `
                 <div style="text-align: center; padding: 25px 10px;">
                     <div style="font-size: 3.2rem; margin-bottom: 15px;">🛡️</div>
                     <h2 style="color: var(--dark-purple); margin-bottom: 8px;">Skickat – Inväntar svar</h2>
                     <div style="display: inline-block; background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; margin-bottom: 20px;">
-                        ✓ End-to-End Krypterad
+                        ✓ End-to-End PGP-Krypterad
                     </div>
                     <p style="color: var(--text-dark); font-size: 1.05rem; line-height: 1.6; max-width: 480px; margin: 0 auto 20px;">
-                        Tack, <strong>${name}</strong>! Ditt meddelande har krypterats klientsidigt och levererats till vår inkorg.
+                        Tack, <strong id="success-name"></strong>! Ditt meddelande har krypterats klientsidigt innan överföring.
                     </p>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">
-                        Vi återkopplar till <strong>${email}</strong> så snart som möjligt.
+                        Vi återkopplar till <strong id="success-email"></strong> så snart som möjligt.
                     </p>
-                    <div style="background: #fafbfd; border: 1px dashed var(--border-color); border-radius: 8px; padding: 12px; font-size: 0.8rem; color: #666; font-family: monospace;">
-                        SHA-256 Session Payload Verified • Zero Secrets Stored
-                    </div>
                 </div>
             `;
+            document.getElementById('success-name').textContent = name;
+            document.getElementById('success-email').textContent = email;
+
         } catch (error) {
             console.error("Överföringsfel:", error);
             statusDiv.className = 'error';
             statusDiv.style.display = 'block';
-            statusDiv.innerHTML = `<strong>Kunde inte skicka:</strong> ${error.message}.`;
+            statusDiv.textContent = `Kunde inte skicka: ${error.message}.`;
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<span>🔒 Kryptera & Skicka meddelande</span>';
         }

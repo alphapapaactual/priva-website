@@ -226,19 +226,23 @@ main {
 
 .canvas-hud-wrapper {
     position: relative;
-    padding: 8px;
-    background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(10, 11, 16, 0.9) 70%);
+    padding: 10px;
+    background: radial-gradient(circle, rgba(157, 78, 221, 0.18) 0%, rgba(10, 11, 16, 0.95) 75%);
     border: 1px solid var(--border-glow);
     border-radius: 16px;
     box-shadow: 0 0 35px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(157, 78, 221, 0.2);
     overflow: hidden;
+    width: 100%;
+    max-width: 440px; /* Ökar maxstorleken på dator (tidigare ca 340px) */
+    margin: 0 auto;
 }
 
 #canvas-container canvas {
     display: block;
     border-radius: 12px;
-    max-width: 100%;
-    height: auto;
+    width: 100% !important;   /* Tvingar canvasen att fylla ut hud-ramen */
+    height: auto !important;
+    aspect-ratio: 1 / 1;
 }
 
 .canvas-caption {

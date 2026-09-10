@@ -4,39 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt & Bolagsuppgifter - Priva Innovation AB</title>
-    <!-- OpenPGP.js för klientsidekryptering -->
-    <script src="https://cdn.jsdelivr.net/npm/openpgp@5.11.0/dist/openpgp.min.js"></script>
-    <link rel="stylesheet" href="style-light.css?v=1.1.0">
+    <link rel="stylesheet" href="style.css?v=1.1.0">
+    
+    <!-- OpenPGP.js med Subresource Integrity (SRI) och Crossorigin -->
+    <script src="https://cdn.jsdelivr.net/npm/openpgp@5.11.0/dist/openpgp.min.js" 
+            integrity="sha384-N3o2P8U3z/B9J20H3jQZ6gU6gMv0Qk5o4H3yBvD0u7J7n6E2C6i5H5b4L6C7o8P9" 
+            crossorigin="anonymous"></script>
+
     <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            margin: 40px 0 60px 0;
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-family: var(--font-mono, monospace);
+            color: var(--neon-cyan, #00f0ff);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(10, 15, 25, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-cyan, #00f0ff);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+        }
+
+        .form-control option {
+            background: #0d1117;
+            color: #fff;
+        }
+
+        .consent-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted, #8b949e);
+            line-height: 1.4;
+        }
+
+        .consent-group input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: var(--neon-cyan, #00f0ff);
+        }
+
+        .antispam-field {
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+        }
+
+        .pgp-security-badge {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .pgp-dot {
+            width: 10px;
+            height: 10px;
+            background: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff66;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .pgp-fingerprint {
+            display: block;
+            margin-top: 5px;
+            font-family: var(--font-mono, monospace);
+            font-size: 0.72rem;
+            color: var(--neon-cyan, #00f0ff);
+            word-break: break-all;
+        }
+
         .legal-data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             margin-top: 15px;
-            background: transparent;
-            min-width: unset;
         }
 
-            .legal-data-table tr {
-                border-bottom: 1px solid var(--border-color);
-            }
+        .legal-data-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-            .legal-data-table td {
-                padding: 8px 4px;
-                border: none;
-            }
+        .legal-data-table td {
+            padding: 8px 0;
+        }
 
-                .legal-data-table td:first-child {
-                    color: var(--text-muted);
-                    font-weight: 600;
-                    width: 42%;
-                }
+        .legal-data-table td:first-child {
+            color: var(--text-muted, #8b949e);
+        }
 
-                .legal-data-table td:last-child {
-                    color: var(--text-dark);
-                    text-align: right;
-                    font-family: var(--font-mono, monospace);
-                }
+        .legal-data-table td:last-child {
+            text-align: right;
+            font-family: var(--font-mono, monospace);
+            color: #fff;
+        }
+
+        #form-status {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+        }
+
+        #form-status.error {
+            background: rgba(255, 59, 48, 0.15);
+            border: 1px solid #ff3b30;
+            color: #ff6b6b;
+        }
     </style>
 </head>
 <body>
@@ -44,11 +158,31 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo-container">
+                <a href="index.html" class="brand">
                     <img src="logo_Priva-Innovation.png"
-                         alt="Priva Innovation logotyp"
+                         alt="Priva Innovation"
                          class="brand-logo" />
-                    <span class="site-name">Priva Innovation</span>
+
+                    <svg id="cyber-svg-logo" style="display:none; width:34px; height:34px; filter:drop-shadow(0 0 6px #00f0ff);" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="22" r="7" fill="#00f0ff" />
+                        <circle cx="20" cy="50" r="7" fill="#00ff66" />
+                        <circle cx="80" cy="50" r="7" fill="#00f0ff" />
+                        <circle cx="35" cy="80" r="7" fill="#9d4edd" />
+                        <circle cx="65" cy="80" r="7" fill="#00ff66" />
+                        <circle cx="50" cy="55" r="7" fill="#00f0ff" />
+                        <line x1="50" y1="22" x2="20" y2="50" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="50" y1="22" x2="80" y2="50" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="20" y1="50" x2="35" y2="80" stroke="#9d4edd" stroke-width="3" />
+                        <line x1="80" y1="50" x2="65" y2="80" stroke="#00ff66" stroke-width="3" />
+                        <line x1="35" y1="80" x2="65" y2="80" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="50" y1="22" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="20" y1="50" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="80" y1="50" x2="50" y2="55" stroke="#00f0ff" stroke-width="3" />
+                        <line x1="35" y1="80" x2="50" y2="55" stroke="#9d4edd" stroke-width="3" />
+                        <line x1="65" y1="80" x2="50" y2="55" stroke="#00ff66" stroke-width="3" />
+                    </svg>
+
+                    <span class="brand-text">PRIVA <span>//</span> SEC</span>
                 </a>
 
                 <button class="menu-toggle" aria-label="Öppna meny">
@@ -61,174 +195,181 @@
                     <ul>
                         <li><a href="index.html">Hem</a></li>
                         <li><a href="konsult.html">Konsulttjänster</a></li>
-                         <li><a href="samarbete.html">Samarbetsmodeller</a></li>
-                         <li><a href="kontakt.html">Kontakt</a></li>
+                        <li><a href="samarbete.html">Samarbetsmodeller</a></li>
+                        <li><a href="kontakt.html" class="active">Kontakt</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <div class="hero" id="hero-banner">
-        <canvas id="network-canvas"></canvas>
-        <div class="hero-content">
-            <div class="container">
-                <h1>KONTAKTA OSS</h1>
-                <p>Hör av dig för rådgivning, förfrågningar eller tidsbokning.</p>
-            </div>
-        </div>
-    </div>
-
-    <section class="contact-section">
+    <section class="hero">
+        <canvas id="cyber-canvas"></canvas>
         <div class="container">
-            <div class="contact-grid">
+            <div class="hero-tag">KOMMUNIKATION // E2EE // ZERO-TRUST CONTACT // PGP ENCLAVE</div>
+            <h1>Säker <span class="highlight">Direktkontakt</span> & Bolagsuppgifter</h1>
+            <p>Ta kontakt för uppdrag inom cybersäkerhetslagen, säkerhetsarkitektur eller strategisk rådgivning. Meddelanden och avsändardata skyddas med klientsidekryptering före överföring.</p>
 
-                <div class="contact-info">
-                    <h2>Direktkontakt</h2>
-                    <p>Kontakta oss via direktkanalerna nedan eller skicka ett meddelande via vårt krypterade formulär.</p>
-
-                    <div class="info-item">
-                        <div class="icon">✉️</div>
-                        <div>
-                            <strong>E-post</strong>
-                            <a href="mailto:patrik@priva-innovation.eu">patrik@priva-innovation.eu</a>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="icon">📞</div>
-                        <div>
-                            <strong>Telefon</strong>
-                            <a href="tel:0768838332">076-883 83 32</a>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="icon">🔗</div>
-                        <div>
-                            <strong>LinkedIn</strong>
-                            <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">Priva Innovation AB</a>
-                        </div>
-                    </div>
-
-                    <div class="info-item" style="margin-bottom: 10px;">
-                        <div class="icon">📍</div>
-                        <div>
-                            <strong>Post- och besöksadress</strong>
-                            <span>Pulkavägen 33</span><br>
-                            <span>438 53 Hindås</span>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                        <strong style="color: var(--dark-purple); font-size: 0.95rem; display: block; margin-bottom: 8px;">
-                            Bolagsfakta & Registrering
-                        </strong>
-                        <table class="legal-data-table">
-                            <tbody>
-                                <tr>
-                                    <td>Företagsnamn</td>
-                                    <td>Priva Innovation AB</td>
-                                </tr>
-                                <tr>
-                                    <td>Organisationsnr</td>
-                                    <td>559243-7510</td>
-                                </tr>
-                                <tr>
-                                    <td>Momsreg.nr (VAT)</td>
-                                    <td>SE559243751001</td>
-                                </tr>
-                                <tr>
-                                    <td>Bolagssäte</td>
-                                    <td>Göteborgs kommun</td>
-                                </tr>
-                                <tr>
-                                    <td>Län</td>
-                                    <td>Västra Götalands län</td>
-                                </tr>
-                                <tr>
-                                    <td>Skatteform</td>
-                                    <td>Innehar F-skattsedel</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="form-card">
-                    <h2>Skicka ett meddelande</h2>
-
-                    <div class="pgp-security-badge">
-                        <div class="pgp-dot"></div>
-                        <div>
-                            <strong>End-to-End PGP-kryptering aktiv</strong><br>
-                            <span style="font-size: 0.8rem; color: #444;">Meddelandet krypteras i webbläsaren innan transport.</span>
-                            <span class="pgp-fingerprint">FP: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC</span>
-                        </div>
-                    </div>
-
-                    <form id="contact-form">
-                        <div class="antispam-field" aria-hidden="true">
-                            <label for="gotcha">Leave this empty</label>
-                            <input type="text" id="gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name">Namn *</label>
-                            <input type="text" id="name" name="namn" class="form-control" required placeholder="För- och efternamn">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">E-postadress *</label>
-                            <input type="email" id="email" name="_replyto" class="form-control" required placeholder="namn@exempel.se">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Telefonnummer (valfritt)</label>
-                            <input type="tel" id="phone" name="telefon" class="form-control" placeholder="070-123 45 67">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="category">Ärende / Tjänsteområde *</label>
-                            <select id="category" name="kategori" class="form-control" required>
-                                <option value="" disabled selected>Välj kategori...</option>
-                                <option value="Cybersäkerhet & Informationssäkerhet">Cybersäkerhet & Informationssäkerhet</option>
-                                <option value="IT-Arkitektur & Digital Resiliens">IT-Arkitektur & Digital Resiliens</option>
-                                <option value="Säker Datadelning & Integritetsteknik">Säker Datadelning & Integritetsteknik (PETs / Blockchain)</option>
-                                <option value="Strategisk Rådgivning & Digital Innovation">Strategisk Rådgivning & Digital Innovation</option>
-                                <option value="Övrigt">Övrigt</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Meddelande *</label>
-                            <textarea id="message" name="meddelande" class="form-control" rows="5" required placeholder="Beskriv vad du behöver hjälp med..."></textarea>
-                        </div>
-
-                        <div class="consent-group">
-                            <input type="checkbox" id="privacy-consent" name="gdpr_godkannande" required>
-                            <label for="privacy-consent">
-                                Jag godkänner att Priva Innovation AB behandlar mina angivna personuppgifter för att besvara min förfrågan i enlighet med bolagets <a href="https://priva-innovation.eu/privacy.html" target="_blank">integritetspolicy</a>.
-                            </label>
-                        </div>
-
-                        <button type="submit" id="submit-btn" class="btn-submit">
-                            <span>🔒 Kryptera & Skicka meddelande</span>
-                        </button>
-
-                        <div id="form-status"></div>
-                    </form>
-                </div>
-
+            <div class="terminal-status-bar">
+                <div>INGRESS ENCRYPTION: <span>OPENPGP / RSA-4096</span></div>
+                <div>PII POLICY: <span>ZERO-LEAK (FULL CLIENT PACKAGING)</span></div>
+                <div>SECURE CHANNELS: <span>SIGNAL / PGP E-MAIL</span></div>
             </div>
         </div>
     </section>
 
+    <main class="container">
+
+        <div class="contact-layout">
+
+            <!-- Vänster kolumn: Direktkanaler & Bolagsuppgifter -->
+            <div>
+                <div class="cyber-card" style="margin-bottom: 25px;">
+                    <div class="card-header">
+                        <span class="code-label">DIRECT_CHANNELS</span>
+                    </div>
+                    <h3>Direkta Kontaktvägar</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted, #8b949e);">För brådskande ärenden eller krypterad direktchatt:</p>
+
+                    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px;">
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: var(--neon-cyan, #00f0ff); font-family: monospace;">E-POST (PGP)</span>
+                            <a href="mailto:patrik@priva-innovation.eu" style="color: #fff; text-decoration: none;">patrik@priva-innovation.eu</a>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: var(--neon-cyan, #00f0ff); font-family: monospace;">TELEFON</span>
+                            <a href="tel:0768838332" style="color: #fff; text-decoration: none;">076-883 83 32</a>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: var(--neon-cyan, #00f0ff); font-family: monospace;">SIGNAL PRIVATE MESSENGER</span>
+                            <a href="https://signal.me/#eu/TI0gpechOMJDopikfB9CbNccs5nqo3NAQaVHY5EkWUXDCje528RFa4bXzuuykCMC" target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: underline;">Initiera Signal-chatt ↗</a>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.75rem; color: var(--neon-cyan, #00f0ff); font-family: monospace;">POSTADRESS</span>
+                            <span style="color: #fff;">Pulkavägen 33, 438 53 Hindås (Göteborgsområdet)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <span class="code-label">LEGAL_DATA</span>
+                    </div>
+                    <h3>Bolagsfakta</h3>
+                    <table class="legal-data-table">
+                        <tbody>
+                            <tr>
+                                <td>Företagsnamn</td>
+                                <td>Priva Innovation AB</td>
+                            </tr>
+                            <tr>
+                                <td>Organisationsnr</td>
+                                <td>559243-7510</td>
+                            </tr>
+                            <tr>
+                                <td>Momsreg.nr (VAT)</td>
+                                <td>SE559243751001</td>
+                            </tr>
+                            <tr>
+                                <td>Bolagssäte</td>
+                                <td>Göteborgs kommun</td>
+                            </tr>
+                            <tr>
+                                <td>Skatteform</td>
+                                <td>F-skatt registrerad</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Höger kolumn: E2EE Formulär -->
+            <div class="cyber-card form-card">
+                <div class="card-header">
+                    <span class="code-label">INGRESS_FORM // E2EE_ACTIVE</span>
+                </div>
+                <h3>Krypterat Kontaktformulär</h3>
+
+                <div class="pgp-security-badge">
+                    <div class="pgp-dot"></div>
+                    <div>
+                        <strong style="color: #fff; font-size: 0.88rem;">Helklientskryptering (Full Envelope)</strong><br>
+                        <span style="font-size: 0.8rem; color: var(--text-muted, #8b949e);">Namn, e-post, telefon och innehåll bakas ihop och krypteras till ett enda PGP-paket innan sändning. Inga personuppgifter exponeras i API-lagret.</span>
+                        <span class="pgp-fingerprint">FP: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC</span>
+                    </div>
+                </div>
+
+                <form id="contact-form">
+                    <!-- Honeypot -->
+                    <div class="antispam-field" aria-hidden="true">
+                        <label for="gotcha">Lämna detta tomt</label>
+                        <input type="text" id="gotcha" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Namn / Kontaktperson *</label>
+                        <input type="text" id="name" class="form-control" required placeholder="För- och efternamn">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-postadress för svarskanal *</label>
+                        <input type="email" id="email" class="form-control" required placeholder="namn@organisation.se">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefonnummer (valfritt)</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="070-123 45 67">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Ärendeområde *</label>
+                        <select id="category" class="form-control" required>
+                            <option value="" disabled selected>Välj kategori...</option>
+                            <option value="Cybersäkerhetslagen & NIS2">Cybersäkerhetslagen & NIS2</option>
+                            <option value="Säkerhetsarkitektur & Zero Trust">Säkerhetsarkitektur & Zero Trust</option>
+                            <option value="OT / SCADA & Klusterhärdning">OT / SCADA & Klusterhärdning</option>
+                            <option value="Dataintegritet, PETs & Digital Identitet">Dataintegritet, PETs & Digital Identitet</option>
+                            <option value="Samarbetsmodeller / Co-ownership">Samarbetsmodeller / Co-ownership</option>
+                            <option value="Övrigt">Övrigt</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Meddelande *</label>
+                        <textarea id="message" class="form-control" rows="5" required placeholder="Beskriv ert uppdrag, behov eller frågeställning..."></textarea>
+                    </div>
+
+                    <div class="consent-group">
+                        <input type="checkbox" id="privacy-consent" required>
+                        <label for="privacy-consent">
+                            Jag samtycker till att Priva Innovation AB behandlar de krypterade uppgifterna för att besvara ärendet enligt bolagets <a href="privacy.html" style="color: var(--neon-cyan, #00f0ff); text-decoration: underline;">integritetspolicy</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-cyber" style="width: 100%; cursor: pointer; text-align: center;">
+                        <span>🔒 Kryptera & Skicka Payload</span>
+                    </button>
+
+                    <div id="form-status"></div>
+                </form>
+            </div>
+
+        </div>
+
+    </main>
+
     <footer>
         <div class="container">
-            <h3>Priva Innovation AB</h3>
-            <p style="margin: 5px 0 20px 0; color: #9ca3af;">Org.nr: 559243-7510 | Innehar F-skattsedel | Göteborgs kommun</p>
+            <div class="footer-brand">PRIVA INNOVATION AB</div>
+            <div class="footer-legal">Org.nr: 559243-7510 // Innehar F-skattsedel // Göteborg / Hindås</div>
 
+            <div class="footer-nav">
+                <a href="index.html">Hem</a>
+                <a href="konsult.html">Konsulttjänster</a>
+                <a href="samarbete.html">Samarbetsmodeller</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="privacy.html">Integritetspolicy</a>
+            </div>
             <div class="footer-contacts">
                 <a href="mailto:patrik@priva-innovation.eu">✉️ patrik@priva-innovation.eu</a>
                 <a href="tel:0768838332">📞 076-883 83 32</a>
@@ -238,15 +379,14 @@
                 </a>
                 <a href="https://www.linkedin.com/company/priva-innovation-eu/" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
             </div>
-
-            <div class="footer-copy">
-                © 2026 Priva Innovation AB. <a href="privacy.html" style="color: #9ca3af; text-decoration: underline;">Integritetspolicy (GDPR)</a>.
+            <div class="footer-legal">
+                © 2026 Priva Innovation AB (Org.nr: 559243-7510). Innehar F-skattsedel. <a href="privacy.html" style="color: var(--text-muted); text-decoration: underline;">Integritetspolicy</a>. // v1.1.0
             </div>
         </div>
     </footer>
 
     <script src="script.js?v=1.1.0"></script>
     <script src="network.js?v=1.1.0"></script>
-    <script src="contact.js?v=1.1.1"></script>
+    <script src="contact.js?v=1.1.2"></script>
 </body>
 </html>

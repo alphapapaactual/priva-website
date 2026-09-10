@@ -22,45 +22,35 @@ function setup() {
     const container = document.getElementById("canvas-container");
     if (!container) return;
 
-    // Öka intern render-yta till 420x420 för skarpare visning på desktop
-    const cnv = createCanvas(420, 420);
+    const cnv = createCanvas(340, 340);
     cnv.parent(container);
 }
 
+const a = (x, y, d = mag(k = (4 + sin(y * 2 - t) * 3) * cos(x / 29), e = y / 8 - 13)) =>
+    point(
+        (q = 3 * sin(k * 2) + 0.3 / k + sin(y / 25) * k * (9 + 4 * sin(e * 9 - d * 3 + t * 2))) + 30 * cos(c = d - t) + 200,
+        q * sin(c) + d * 39 - 220
+    );
+
 function draw() {
-    const container = document.getElementById("canvas-container");
-    if (!container) return;
+    if (!document.getElementById("canvas-container")) return;
 
     background(0);
     push();
-    // Skala för att matcha 420px-ytan perfekt mot originalformeln (baserad på 400)
-    scale(420 / 400);
+    scale(340 / 400);
     stroke(255);
     strokeWeight(2);
 
-    t += PI / 240;
-
-    for (let i = 4000; i--;) {
-        const y = i / 235;
-        const k = (4 + sin(y * 2 - t) * 3) * cos(i / 29);
-        const e = y / 8 - 13;
-        const d = mag(k, e);
-        const c = d - t;
-        const q = 3 * sin(k * 2) + 0.3 / k + sin(y / 25) * k * (9 + 4 * sin(e * 9 - d * 3 + t * 2));
-
-        point(
-            q + 30 * cos(c) + 200,
-            q * sin(c) + d * 39 - 220
-        );
+    for (t += PI / 240, i = 1e4; i--;) {
+        a(i, i / 235);
     }
     pop();
 }
 
 /* ==========================================================================
-   Logotyp-fallback & Hamburgarmeny
+   Logotyp-fallback (Ersätter inline onerror)
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    // Logotyp fallback
     const logos = document.querySelectorAll('.brand-logo, .logo-container img');
     logos.forEach(img => {
         img.addEventListener('error', function () {
@@ -74,23 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
 
-    // Mobilmeny
+/* ==========================================================================
+   Mobilmeny (Hamburgarmeny)
+   ========================================================================== */
+function setupMobileMenu() {
     const menuBtn = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
     if (!menuBtn || !nav) return;
 
-    menuBtn.addEventListener('click', (e) => {
+    menuBtn.onclick = function (e) {
         e.preventDefault();
         e.stopPropagation();
         menuBtn.classList.toggle('is-active');
         nav.classList.toggle('nav-open');
-    });
+    };
 
+    // Stäng menyn automatiskt om besökaren klickar utanför
     document.addEventListener('click', (e) => {
         if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
             nav.classList.remove('nav-open');
             menuBtn.classList.remove('is-active');
         }
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMobileMenu);
+} else {
+    setupMobileMenu();
+}

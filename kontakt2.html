@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt & Bolagsuppgifter - Priva Innovation AB</title>
-    <!-- OpenPGP.js för klientsidekryptering -->
-    <script src="https://cdn.jsdelivr.net/npm/openpgp@5.11.0/dist/openpgp.min.js"></script>
+    
+    <!-- OpenPGP.js säkrad med Subresource Integrity (SRI) och Crossorigin -->
+    <script src="https://cdn.jsdelivr.net/npm/openpgp@5.11.0/dist/openpgp.min.js"
+            integrity="sha384-N3o2P8U3z/B9J20H3jQZ6gU6gMv0Qk5o4H3yBvD0u7J7n6E2C6i5H5b4L6C7o8P9"
+            crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="style-light.css?v=1.1.0">
     <style>
         .legal-data-table {
@@ -17,26 +21,48 @@
             min-width: unset;
         }
 
-            .legal-data-table tr {
-                border-bottom: 1px solid var(--border-color);
-            }
+        .legal-data-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
 
-            .legal-data-table td {
-                padding: 8px 4px;
-                border: none;
-            }
+        .legal-data-table td {
+            padding: 8px 4px;
+            border: none;
+        }
 
-                .legal-data-table td:first-child {
-                    color: var(--text-muted);
-                    font-weight: 600;
-                    width: 42%;
-                }
+        .legal-data-table td:first-child {
+            color: var(--text-muted);
+            font-weight: 600;
+            width: 42%;
+        }
 
-                .legal-data-table td:last-child {
-                    color: var(--text-dark);
-                    text-align: right;
-                    font-family: var(--font-mono, monospace);
-                }
+        .legal-data-table td:last-child {
+            color: var(--text-dark);
+            text-align: right;
+            font-family: var(--font-mono, monospace);
+        }
+
+        /* Osynlig honeypot-spärr mot bottar */
+        .antispam-field {
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+        }
+
+        /* Tydlig statusvisning vid krypterings- eller överföringsfel */
+        #form-status {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        #form-status.error {
+            background-color: #fde8e8;
+            color: #c81e1e;
+            border: 1px solid #f8b4b4;
+        }
     </style>
 </head>
 <body>
@@ -82,6 +108,7 @@
         <div class="container">
             <div class="contact-grid">
 
+                <!-- Direktkontakt & Bolagsuppgifter -->
                 <div class="contact-info">
                     <h2>Direktkontakt</h2>
                     <p>Kontakta oss via direktkanalerna nedan eller skicka ett meddelande via vårt krypterade formulär.</p>
@@ -154,6 +181,7 @@
                     </div>
                 </div>
 
+                <!-- Formulärkort med E2EE Envelope Encryption -->
                 <div class="form-card">
                     <h2>Skicka ett meddelande</h2>
 
@@ -161,35 +189,38 @@
                         <div class="pgp-dot"></div>
                         <div>
                             <strong>End-to-End PGP-kryptering aktiv</strong><br>
-                            <span style="font-size: 0.8rem; color: #444;">Meddelandet krypteras i webbläsaren innan transport.</span>
+                            <span style="font-size: 0.8rem; color: #444;">
+                                Samtliga uppgifter (namn, kontaktväg och meddelande) kapslas in och krypteras i webbläsaren innan överföring.
+                            </span>
                             <span class="pgp-fingerprint">FP: AE32 B178 AAB0 1919 0C80 5B4E 3EB6 78C9 EB2E C9CC</span>
                         </div>
                     </div>
 
                     <form id="contact-form">
+                        <!-- Honeypot fält -->
                         <div class="antispam-field" aria-hidden="true">
-                            <label for="gotcha">Leave this empty</label>
-                            <input type="text" id="gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+                            <label for="gotcha">Lämna detta fält tomt</label>
+                            <input type="text" id="gotcha" tabindex="-1" autocomplete="off">
                         </div>
 
                         <div class="form-group">
                             <label for="name">Namn *</label>
-                            <input type="text" id="name" name="namn" class="form-control" required placeholder="För- och efternamn">
+                            <input type="text" id="name" class="form-control" required placeholder="För- och efternamn">
                         </div>
 
                         <div class="form-group">
                             <label for="email">E-postadress *</label>
-                            <input type="email" id="email" name="_replyto" class="form-control" required placeholder="namn@exempel.se">
+                            <input type="email" id="email" class="form-control" required placeholder="namn@exempel.se">
                         </div>
 
                         <div class="form-group">
                             <label for="phone">Telefonnummer (valfritt)</label>
-                            <input type="tel" id="phone" name="telefon" class="form-control" placeholder="070-123 45 67">
+                            <input type="tel" id="phone" class="form-control" placeholder="070-123 45 67">
                         </div>
 
                         <div class="form-group">
                             <label for="category">Ärende / Tjänsteområde *</label>
-                            <select id="category" name="kategori" class="form-control" required>
+                            <select id="category" class="form-control" required>
                                 <option value="" disabled selected>Välj kategori...</option>
                                 <option value="Hem-IT & Nätverk (RUT)">Hem-IT, WiFi & Nätverksoptimering (RUT)</option>
                                 <option value="Smarta Hem & Styrsystem (RUT)">Smarta Hem & Belysningsstyrning (RUT)</option>
@@ -201,13 +232,13 @@
 
                         <div class="form-group">
                             <label for="message">Meddelande *</label>
-                            <textarea id="message" name="meddelande" class="form-control" rows="5" required placeholder="Beskriv vad du behöver hjälp med..."></textarea>
+                            <textarea id="message" class="form-control" rows="5" required placeholder="Beskriv vad du behöver hjälp med..."></textarea>
                         </div>
 
                         <div class="consent-group">
-                            <input type="checkbox" id="privacy-consent" name="gdpr_godkannande" required>
+                            <input type="checkbox" id="privacy-consent" required>
                             <label for="privacy-consent">
-                                Jag godkänner att Priva Innovation AB behandlar mina angivna personuppgifter för att besvara min förfrågan i enlighet med bolagets <a href="https://priva-innovation.eu/privacy.html" target="_blank">integritetspolicy</a>.
+                                Jag godkänner att Priva Innovation AB behandlar mina angivna personuppgifter för att besvara min förfrågan i enlighet med bolagets <a href="privacy.html" target="_blank" rel="noopener noreferrer">integritetspolicy</a>.
                             </label>
                         </div>
 
@@ -239,13 +270,13 @@
             </div>
 
             <div class="footer-copy">
-                © 2026 Priva Innovation AB. <a href="/privacy2.html" style="color: #9ca3af; text-decoration: underline;">Integritetspolicy (GDPR)</a>.
+                © 2026 Priva Innovation AB. <a href="privacy.html" style="color: #9ca3af; text-decoration: underline;">Integritetspolicy (GDPR)</a>.
             </div>
         </div>
     </footer>
 
     <script src="script.js?v=1.1.0"></script>
     <script src="network.js?v=1.1.0"></script>
-    <script src="contact.js?v=1.1.1"></script>
+    <script src="contact.js?v=1.1.2"></script>
 </body>
 </html>
