@@ -67,14 +67,26 @@ ${message}
 
         submitBtn.innerHTML = '<span>📡 Överför krypterad payload...</span>';
 
+        // 🥚 Påskägg för den som har DevTools / Nätverksfliken öppen vid sändning
+        console.log(
+            "%c🕵️‍♂️ PEEPING TOM DETECTED? %c\n" +
+            "Letar du efter namn och mejl i klartext i nätverkstrafiken?\n" +
+            "Tji fick du – vi kör Zero-Trust på riktigt. All reell PII är inkapslad\n" +
+            "och asymmetriskt krypterad i PGP-blocket ovan.\n" +
+            "Azure-backend får nöja sig med vår hemliga agent nedan. 😉",
+            "background: #0f172a; color: #00ff66; font-weight: bold; font-size: 12px; padding: 4px 8px; border-radius: 3px;",
+            "color: #00f0ff; font-family: monospace; font-size: 11px; margin-top: 4px;"
+        );
+
         try {
             const response = await fetch(AZURE_CONTACT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    message: encryptedBody   // Det krypterade PGP-paketet
+                    // Dummy-värden som tillfredsställer Azures fältvalidering:
+                    name: "Major General Failure // [Real ID Encrypted in PGP]",
+                    email: "nice-try-wiretapper@devnull.priva-innovation.eu",
+                    message: encryptedBody // <- Här i ligger det riktiga namnet, mejlen och texten
                 })
             });
 
