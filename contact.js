@@ -71,10 +71,10 @@ ${message}
             const response = await fetch(AZURE_CONTACT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Skicka endast krypterad payload om strikt E2E eftersträvas
                 body: JSON.stringify({
-                    encryptedMessage: encryptedBody,
-                    _gotcha: document.getElementById('gotcha').value // Skickas med för backend-spärr
+                    name: name,
+                    email: email,
+                    message: encryptedBody   // Det krypterade PGP-paketet
                 })
             });
 
